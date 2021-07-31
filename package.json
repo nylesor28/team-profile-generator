@@ -1,0 +1,28 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Generate webpage that shows a team's basic info ",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nylesor28/team-profile-generator.git"
+  },
+  "author": "nylesor28",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nylesor28/team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/nylesor28/team-profile-generator#readme",
+  "devDependencies": {
+    "jest": "^27.0.6"
+  },
+  "dependencies": {
+    "inquirer": "^8.1.2"
+  }
+}
