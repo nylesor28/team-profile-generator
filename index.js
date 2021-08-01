@@ -46,18 +46,17 @@ const promptTeamMembers = (teamData) => {
     teamData.internData = [];
   }
 
-  console.log("promptTeamMembers: ", teamData);
+ // console.log("promptTeamMembers: ", teamData);
   return inquirer
     .prompt([
       {
         type: "list",
         name: "option",
         message: "Add Team Member or exit",
-        choices: ["Add Engineer", "Add Intern", "Exit "],
+        choices: ["Add Engineer", "Add Intern", "Exit"],
       },
     ])
     .then((choice) => {
-      console.log("Hello: ", choice.option, teamData);
       response = choice.option;
 
       if (response === "Add Engineer") {
@@ -82,15 +81,41 @@ const promptTeamMembers = (teamData) => {
               type: "input",
               name: "githubName",
               message: "What is the engineer's github username? (Required)",
-            },
+            }
           ])
-          .then((engData) => {
+          .then( (engData) => {
             teamData.engineerData.push(engData);
             return promptTeamMembers(teamData);
           });
       } else if (response === "Add Intern") {
+        return inquirer
+          .prompt([
+            {
+              type: "input",
+              name: "name",
+              message: "What is the intern's name? (Required)",
+            },
+            {
+              type: "input",
+              name: "id",
+              message: "What is the intern's id? (Required)",
+            },
+            {
+              type: "input",
+              name: "email",
+              message: "What is the intern's email? (Required)",
+            },
+            {
+              type: "input",
+              name: "school",
+              message: "What school does the intern go to? (Required)",
+            },
+          ])
+          .then((internData) => {
+            teamData.internData.push(internData);
+            return promptTeamMembers(teamData);
+          });
 
-        
       } else {
         return teamData;
       }
@@ -101,17 +126,11 @@ promptManager()
   .then((managerData) => {
     let employeeData = {};
     employeeData.manager = managerData;
-    console.log(employeeData);
     return employeeData;
   })
-  .then((employeeData) => {
-    return (teamData = promptTeamMembers(employeeData));
-    // employeeData.engineerData = teamData.engineerData;
-    // employeeData.internData = teamData.internData
+  .then((data) => {
+   return employeeData = promptTeamMembers(data); 
   })
-  .then((employeeData) => {
-    console.log(employeeData);
-  });
 // .then((teammatesData)=>{
 //     console.log(employeeData)
 //    employeeData.engineerData = teammatesData.engineerData
