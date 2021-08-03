@@ -2,9 +2,11 @@
 const isValidNumber= id => {
     let num = parseInt(id);
     let isValid = (num ? true : false);
+    //  console.log ("isValidNumber: ",id,  num, isValid)
     if (isValid) {
         isValid = num < 0 ? false : true;
     }
+    // console.log (" Final isValidNumber: ", num, isValid)
     return isValid
     
 }

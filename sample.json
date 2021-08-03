@@ -1,0 +1,86 @@
+{
+    "manager": {
+      "name": "jimmy manager",
+      "id": "87",
+      "email": "jimmy@email.com",
+      "officeNumber": "009"
+    },
+    "engineerData": [
+      {
+        "name": "sue engineer",
+        "id": "001",
+        "email": "sue@email.com",
+        "githubName": "facebook"
+      },
+      {
+        "name": "Evan Engineer",
+        "id": "003",
+        "email": "evan@email.com",
+        "githubName": "react"
+      }
+    ],
+    "internData": [
+      {
+        "name": "Jason Intern",
+        "id": "07",
+        "email": "jason@email.com",
+        "school": "Hudson University"
+      },
+      {
+        "name": "Macy Intern",
+        "id": "002",
+        "email": "macy@email.com",
+        "school": "Webster University"
+      }
+    ]
+  }
+
+
+  {
+    manager: Manager {
+      name: 'Jimmy Manager',
+      id: '1',
+      email: 'jimmy@email.com',
+      role: 'Manager',
+      officeNumber: '1001'
+    },
+    engineerData: [
+      Engineer {
+        name: 'Timmy Engineer',
+        id: '2',
+        email: 'timmy@email.com',
+        role: 'Engineer',
+        githubUsername: 'facebook'
+      },
+      Engineer {
+        name: 'Sue Engineer',
+        id: '3',
+        email: 'sue@email.com',
+        role: 'Engineer',
+        githubUsername: 'react'
+      },
+      Engineer {
+        name: 'Sandy Engineer',
+        id: '4',
+        email: 'sandy@email.com',
+        role: 'Engineer',
+        githubUsername: 'github'
+      }
+    ],
+    internData: [
+      Intern {
+        name: 'Matt Intern',
+        id: '5',
+        email: 'matt@email.com',
+        role: 'Intern',
+        school: 'Hudson University'
+      },
+      Intern {
+        name: 'John Intern',
+        id: '6',
+        email: 'john@email.com',
+        role: 'Intern',
+        school: 'West Virginia University'
+      }
+    ]
+  }

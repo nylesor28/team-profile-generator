@@ -1,4 +1,4 @@
-const Employee = require("./lib/Employee");
+const Employee = require("./lib/Employee.js");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -6,7 +6,10 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+const generatePage = require('./src/page-template');
 const {isValidNumber, isValidEmail} = require('./utils/validation');
+const { writeFile, copyFile } = require('./utils/generate-site');
+const { parse } = require("path");
 
 //const generatePage = require("./src/page-template");
 //let employeeData;
@@ -31,18 +34,30 @@ const promptManager = () => {
         type: "input",
         name: "id",
         message: "What is the manager's id? (Required)",
-        validate: (idInput) => {
-            if (isValidNumber(idInput)) {
-              return true;
-            } else {
-              console.log("Please enter a valid managers's id!");
-
-              return false;
-            }
-          },
-          filter: (answer)=>{
-            answer.id =""
+        validate: (answer) => {
+          const errMsg = "Please enter a number greater than 0"
+          if (isNaN(answer)) {
+            return errMsg
           }
+          if((parseInt(answer) <=0))
+            return errMsg
+         else return true;
+        }
+      //   validate: (idInput) => {
+      //     if (idInput === '') {
+      //       return 'Please provide a valid number greater then 0'
+      //     }
+      //       // if (isValidNumber(idInput)) {
+      //       //   return true;
+      //       // } else {
+      //       //   console.log("Please enter a valid managers's id!");
+      //       //   return false;
+      //       // }
+      // },
+      //     filter: idInput => {
+      //       // clear the invalid input
+      //       return Number.isNaN(idInput) || Number(idInput) <= 0 ? '' : Number(idInput)
+      //   }
       },
       {
         type: "input",
@@ -72,7 +87,7 @@ const promptManager = () => {
       },
     ])
     .then((managerData) => {
-      return managerData;
+      return new Manager(managerData.name, managerData.id, managerData.email, managerData.officeNumber)
     });
 };
 
@@ -153,7 +168,7 @@ const promptTeamMembers = (teamData) => {
             }
           ])
           .then( (engData) => {
-            teamData.engineerData.push(engData);
+            teamData.engineerData.push(new Engineer(engData.name, engData.id, engData.email, engData.githubName));
             return promptTeamMembers(teamData);
           });
       } else if (response === "Add Intern") {
@@ -213,7 +228,7 @@ const promptTeamMembers = (teamData) => {
             }
           ])
           .then((internData) => {
-            teamData.internData.push(internData);
+            teamData.internData.push(new Intern(internData.name, internData.id, internData.email, internData.school));
             return promptTeamMembers(teamData);
           });
 
@@ -231,6 +246,12 @@ promptManager()
   })
   .then((data) => {
    return employeeData = promptTeamMembers(data); 
+  }).then((employeeData)=>{
+    console.log(employeeData)
+    return generatePage(employeeData);
+  })
+  .then(pageHTML => {
+    return writeFile(pageHTML);
   })
 // .then((teammatesData)=>{
 //     console.log(employeeData)
