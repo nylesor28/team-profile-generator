@@ -238,24 +238,66 @@ const promptTeamMembers = (teamData) => {
     });
 };
 
-promptManager()
-  .then((managerData) => {
-    let employeeData = {};
-    employeeData.manager = managerData;
-    return employeeData;
-  })
-  .then((data) => {
-   return employeeData = promptTeamMembers(data); 
-  }).then((employeeData)=>{
-    console.log(employeeData)
-    return generatePage(employeeData);
-  })
-  .then(pageHTML => {
-    return writeFile(pageHTML);
-  })
-// .then((teammatesData)=>{
+const mockData = 
+`
+manager: {
+  "name": "jimmy manager",
+  "id": "87",
+  "email": "jimmy@email.com",
+  "officeNumber": "009"
+},
+engineerData: [
+  {
+    "name": "sue engineer",
+    "id": "001",
+    "email": "sue@email.com",
+    "githubName": "facebook"
+  },
+  {
+    "name": "Evan Engineer",
+    "id": "003",
+    "email": "evan@email.com",
+    "githubName": "react"
+  }
+],
+internData: [
+  {
+    "name": "Jason Intern",
+    "id": "07",
+    "email": "jason@email.com",
+    "school": "Hudson University"
+  },
+  {
+    "name": "Macy Intern",
+    "id": "002",
+    "email": "macy@email.com",
+    "school": "Webster University"
+  }
+]
+}
+`
+;
+console.log(JSON.parse(mockData))
+writeFile(generatePage(JSON.parse(mockData)))
+
+// promptManager()
+//   .then((managerData) => {
+//     let employeeData = {};
+//     employeeData.manager = managerData;
+//     return employeeData;
+//   })
+//   .then((data) => {
+//    return employeeData = promptTeamMembers(data); 
+//   }).then((employeeData)=>{
 //     console.log(employeeData)
-//    employeeData.engineerData = teammatesData.engineerData
-//    employeeData.internData = teammatesData.internData
-//    console.log(employeeData)
-// })
+//     return generatePage(employeeData);
+//   })
+//   .then(pageHTML => {
+//     return writeFile(pageHTML);
+//   })
+  // .then((teammatesData)=>{
+  //     console.log(employeeData)
+  //    employeeData.engineerData = teammatesData.engineerData
+  //    employeeData.internData = teammatesData.internData
+  //    console.log(employeeData)
+  // })
