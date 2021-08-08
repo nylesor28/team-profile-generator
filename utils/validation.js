@@ -1,13 +1,7 @@
 
-const isValidNumber= id => {
-    let num = parseInt(id);
-    let isValid = (num ? true : false);
-    //  console.log ("isValidNumber: ",id,  num, isValid)
-    if (isValid) {
-        isValid = num < 0 ? false : true;
-    }
-    // console.log (" Final isValidNumber: ", num, isValid)
-    return isValid
+const isValidNumber= num => {
+   // console.log("Check Num: ", num)
+    return !isNaN(num) && num > 0;
     
 }
 
@@ -18,6 +12,7 @@ const isValidEmail = email => {
     if(email.match(regex)){
         isValid = true
     }
+    console.log("Validate Email: ", email, isValid)
     return isValid;
 }
 

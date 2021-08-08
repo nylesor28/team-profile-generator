@@ -1,18 +1,10 @@
-const Employee = require("./lib/Employee.js");
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-const generatePage = require('./src/page-template');
-const {isValidNumber, isValidEmail} = require('./utils/validation');
-const { writeFile, copyFile } = require('./utils/generate-site');
+const generatePage = require("./src/page-template");
+const { isValidNumber, isValidEmail } = require("./utils/validation");
+const { writeFile, copyFile } = require("./utils/generate-site");
 const { parse } = require("path");
-
-//const generatePage = require("./src/page-template");
-//let employeeData;
 
 const promptManager = () => {
   return inquirer
@@ -22,72 +14,55 @@ const promptManager = () => {
         name: "name",
         message: "What is the manager's name? (Required)",
         validate: (nameInput) => {
-            if (nameInput) {
-              return true;
-            } else {
-              console.log("Please enter a valid manager name!");
-              return false;
-            }
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("Please enter a valid  name!");
+            return false;
           }
+        },
       },
       {
         type: "input",
         name: "id",
         message: "What is the manager's id? (Required)",
-        validate: (answer) => {
-          const errMsg = "Please enter a number greater than 0"
-          if (isNaN(answer)) {
-            return errMsg
-          }
-          if((parseInt(answer) <=0))
-            return errMsg
-         else return true;
-        }
-      //   validate: (idInput) => {
-      //     if (idInput === '') {
-      //       return 'Please provide a valid number greater then 0'
-      //     }
-      //       // if (isValidNumber(idInput)) {
-      //       //   return true;
-      //       // } else {
-      //       //   console.log("Please enter a valid managers's id!");
-      //       //   return false;
-      //       // }
-      // },
-      //     filter: idInput => {
-      //       // clear the invalid input
-      //       return Number.isNaN(idInput) || Number(idInput) <= 0 ? '' : Number(idInput)
-      //   }
+
+        validate: (idInput) =>(
+          idInput === "" || !isValidNumber(idInput)
+            ? " Please enter a valid number greater than 0."
+            : true),
+        filter: (idInput) => (!isValidNumber(idInput) ? "" : idInput),
       },
       {
         type: "input",
         name: "email",
         message: "What is the manager's email? (Required)",
-        validate: (emailInput) => {
-            if (isValidEmail(emailInput)) {
-              return true;
-            } else {
-              console.log("Please enter a valid managers's email!");
-              return false;
-            }
-          }
+        validate: (emailInput) => (
+          // if (isValidEmail(emailInput)) {
+          //   return true;
+          // } else {
+          //   console.log("Please enter a valid email format!");
+          //   emailInput = "";
+          //   return false;
+          // }
+          (!isValidEmail(emailInput)) ? " Please enter a valid email format." : true
+        ),
+        filter: (emailInput) => (!isValidEmail(emailInput) ? "" : emailInput)
       },
       {
         type: "input",
         name: "officeNumber",
         message: "What is the manager's office number? (Required)",
-        validate: (officeNumberInput) => {
-            if (officeNumberInput) {
-              return true;
-            } else {
-              console.log("Please enter a valid manager name!");
-              return false;
-            }
-          }
+        validate: (officeNumberInput) =>
+          officeNumberInput === "" || !isValidNumber(officeNumberInput)
+            ? " Please enter a valid number greater than 0."
+            : true,
+        filter: (officeNumberInput) =>
+          !isValidNumber(officeNumberInput) ? "" : officeNumberInput,
       },
     ])
     .then((managerData) => {
-      return new Manager(managerData.name, managerData.id, managerData.email, managerData.officeNumber)
+      return managerData;
     });
 };
 
@@ -99,7 +74,6 @@ const promptTeamMembers = (teamData) => {
     teamData.internData = [];
   }
 
- // console.log("promptTeamMembers: ", teamData);
   return inquirer
     .prompt([
       {
@@ -123,23 +97,20 @@ const promptTeamMembers = (teamData) => {
                 if (nameInput) {
                   return true;
                 } else {
-                  console.log("Please enter a valid manager name!");
+                  console.log("Please enter a valid name!");
                   return false;
                 }
-              }
+              },
             },
             {
               type: "input",
               name: "id",
               message: "What is the engineer's id? (Required)",
-              validate: (idInput) => {
-                if (isValidNumber(idInput)) {
-                  return true;
-                } else {
-                  console.log("Please enter a valid engineer's id!");
-                  return false;
-                }
-              }
+              validate: (idInput) =>
+                idInput === "" || !isValidNumber(idInput)
+                  ? " Please enter a valid number greater than 0."
+                  : true,
+              filter: (idInput) => (!isValidNumber(idInput) ? "" : idInput),
             },
             {
               type: "input",
@@ -152,7 +123,7 @@ const promptTeamMembers = (teamData) => {
                   console.log("Please enter a valid engineer's email!");
                   return false;
                 }
-              }
+              },
             },
             {
               type: "input",
@@ -164,11 +135,11 @@ const promptTeamMembers = (teamData) => {
                 } else {
                   console.log("Please enter Github Username!");
                 }
-              }
-            }
+              },
+            },
           ])
-          .then( (engData) => {
-            teamData.engineerData.push(new Engineer(engData.name, engData.id, engData.email, engData.githubName));
+          .then((engData) => {
+            teamData.engineerData.push(engData);
             return promptTeamMembers(teamData);
           });
       } else if (response === "Add Intern") {
@@ -182,23 +153,20 @@ const promptTeamMembers = (teamData) => {
                 if (nameInput) {
                   return true;
                 } else {
-                  console.log("Please enter a valid intern's name!");
+                  console.log("Please enter a valid  name!");
                   return false;
                 }
-              }
+              },
             },
             {
               type: "input",
               name: "id",
               message: "What is the intern's id? (Required)",
-              validate: (idInput) => {
-                if (isValidNumber(idInput)) {
-                  return true;
-                } else {
-                  console.log("Please enter a valid intern's id!");
-                  return false;
-                }
-              }
+              validate: (idInput) =>
+                idInput === "" || !isValidNumber(idInput)
+                  ? " Please enter a valid number greater than 0."
+                  : true,
+              filter: (idInput) => (!isValidNumber(idInput) ? "" : idInput),
             },
             {
               type: "input",
@@ -211,7 +179,7 @@ const promptTeamMembers = (teamData) => {
                   console.log("Please enter a valid intern's email!");
                   return false;
                 }
-              }
+              },
             },
             {
               type: "input",
@@ -224,80 +192,105 @@ const promptTeamMembers = (teamData) => {
                   console.log("Please enter a valid School!");
                   return false;
                 }
-              }
-            }
+              },
+            },
           ])
           .then((internData) => {
-            teamData.internData.push(new Intern(internData.name, internData.id, internData.email, internData.school));
+            teamData.internData.push(internData);
             return promptTeamMembers(teamData);
           });
-
       } else {
         return teamData;
       }
     });
 };
 
-const mockData = 
-`
-manager: {
-  "name": "jimmy manager",
-  "id": "87",
-  "email": "jimmy@email.com",
-  "officeNumber": "009"
-},
-engineerData: [
-  {
-    "name": "sue engineer",
-    "id": "001",
-    "email": "sue@email.com",
-    "githubName": "facebook"
+getmockData = () => {
+  const mockData = `
+{
+  "manager": {
+    "name": "Tim Manager",
+    "id": "1",
+    "email": "tim@email.com",
+    "officeNumber": "1"
   },
-  {
-    "name": "Evan Engineer",
-    "id": "003",
-    "email": "evan@email.com",
-    "githubName": "react"
-  }
-],
-internData: [
-  {
-    "name": "Jason Intern",
-    "id": "07",
-    "email": "jason@email.com",
-    "school": "Hudson University"
-  },
-  {
-    "name": "Macy Intern",
-    "id": "002",
-    "email": "macy@email.com",
-    "school": "Webster University"
-  }
-]
+  "engineerData": [
+    {
+      "name": "Sue Engineer",
+      "id": "2",
+      "email": "sue@email.com",
+      "githubName": "facebook"
+    },
+    {
+      "name": "Bernie Engineer",
+      "id": "3",
+      "email": "bernie@email.com",
+      "githubName": "react"
+    }
+  ],
+  "internData": [
+    {
+      "name": "Jason Intern",
+      "id": "4",
+      "email": "jason@email.com",
+      "school": "NYU"
+    },
+    {
+      "name": "Rina Intern",
+      "id": "5",
+      "email": "rina@email.com",
+      "school": "Columbia University"
+    }
+  ]
 }
-`
-;
-console.log(JSON.parse(mockData))
-writeFile(generatePage(JSON.parse(mockData)))
+`;
+  return JSON.parse(mockData);
+ };
+promptManager()
+  .then((managerData) => {
+    let employeeData = {};
+    employeeData.manager = managerData;
+    return employeeData;
+  })
+  .then((data) => {
+   return employeeData = promptTeamMembers(data);
+  }).then((employeeData)=>{
+  //  console.log(employeeData)
+    return generatePage(employeeData);
+  })
+  .then(pageHTML => {
+    return writeFile(pageHTML);
+  })
+  .then(writeFileResponse => {
+   // console.log(writeFileResponse);
+    return copyFile();
+  })
+  .then(copyFileResponse => {
+    console.log("Process Complete");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 // promptManager()
 //   .then((managerData) => {
-//     let employeeData = {};
-//     employeeData.manager = managerData;
-//     return employeeData;
+//     return getmockData();
 //   })
+
 //   .then((data) => {
-//    return employeeData = promptTeamMembers(data); 
-//   }).then((employeeData)=>{
-//     console.log(employeeData)
-//     return generatePage(employeeData);
+//     //  console.log(employeeData)
+//     return generatePage(data);
 //   })
-//   .then(pageHTML => {
+//   .then((pageHTML) => {
 //     return writeFile(pageHTML);
 //   })
-  // .then((teammatesData)=>{
-  //     console.log(employeeData)
-  //    employeeData.engineerData = teammatesData.engineerData
-  //    employeeData.internData = teammatesData.internData
-  //    console.log(employeeData)
-  // })
+//   .then((writeFileResponse) => {
+//     // console.log(writeFileResponse);
+//     return copyFile();
+//   })
+//   .then((copyFileResponse) => {
+//     console.log("Process Complete");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
