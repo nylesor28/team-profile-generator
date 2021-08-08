@@ -1,6 +1,6 @@
 
 const isValidNumber= num => {
-   // console.log("Check Num: ", num)
+
     return !isNaN(num) && num > 0;
     
 }
@@ -12,7 +12,6 @@ const isValidEmail = email => {
     if(email.match(regex)){
         isValid = true
     }
-    console.log("Validate Email: ", email, isValid)
     return isValid;
 }
 

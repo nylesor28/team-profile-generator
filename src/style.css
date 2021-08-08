@@ -1,0 +1,17 @@
+
+.card{
+    margin: 1%;
+}
+
+.card p{
+    margin: 0%;
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+header{
+ background-color: #e84756;
+ color: white;
+ text-align: center;
+}

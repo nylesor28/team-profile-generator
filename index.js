@@ -38,13 +38,6 @@ const promptManager = () => {
         name: "email",
         message: "What is the manager's email? (Required)",
         validate: (emailInput) => (
-          // if (isValidEmail(emailInput)) {
-          //   return true;
-          // } else {
-          //   console.log("Please enter a valid email format!");
-          //   emailInput = "";
-          //   return false;
-          // }
           (!isValidEmail(emailInput)) ? " Please enter a valid email format." : true
         ),
         filter: (emailInput) => (!isValidEmail(emailInput) ? "" : emailInput)
@@ -116,14 +109,10 @@ const promptTeamMembers = (teamData) => {
               type: "input",
               name: "email",
               message: "What is the engineer's email? (Required)",
-              validate: (emailInput) => {
-                if (isValidEmail(emailInput)) {
-                  return true;
-                } else {
-                  console.log("Please enter a valid engineer's email!");
-                  return false;
-                }
-              },
+              validate: (emailInput) => (
+                (!isValidEmail(emailInput)) ? " Please enter a valid email format." : true
+              ),
+              filter: (emailInput) => (!isValidEmail(emailInput) ? "" : emailInput)
             },
             {
               type: "input",
@@ -172,19 +161,15 @@ const promptTeamMembers = (teamData) => {
               type: "input",
               name: "email",
               message: "What is the intern's email? (Required)",
-              validate: (emailInput) => {
-                if (isValidEmail(emailInput)) {
-                  return true;
-                } else {
-                  console.log("Please enter a valid intern's email!");
-                  return false;
-                }
-              },
+              validate: (emailInput) => (
+                (!isValidEmail(emailInput)) ? " Please enter a valid email format." : true
+              ),
+              filter: (emailInput) => (!isValidEmail(emailInput) ? "" : emailInput)
             },
             {
               type: "input",
               name: "school",
-              message: "What school does the intern go to? (Required)",
+              message: "What school does the intern attend? (Required)",
               validate: (schoolInput) => {
                 if (schoolInput) {
                   return true;
