@@ -5,7 +5,7 @@ test("creates an manager object",()=>{
     const manager = new Manager("Titan", 55, "noemail@gmail.com",9876543210);
     expect(manager.name).toBe("Titan");
     expect(manager.id).toEqual(expect.any(Number));
-    expect(manager.email).toMatch(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/);
+    expect(manager.email).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
     expect(manager.role).toBe("Manager");
     expect(manager.officeNumber).toEqual(expect.any(Number));
 })
@@ -23,7 +23,7 @@ test("gets manager's id",()=>{
 
 test("gets manager's email",()=>{
     const manager = new Manager("Titan", 55, "noemail@gmail.com",9876543210);
-    expect(manager.getEmail()).toMatch(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/);
+    expect(manager.getEmail()).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 })
 
 test("gets manager's role",()=>{

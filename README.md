@@ -30,7 +30,8 @@ THEN I exit the application, and the HTML is generated
 
 ## Links
 * **Github Repo:** <https://github.com/nylesor28/team-profile-generator>
-* **:Video Walkthrough** <>
+* **Video Walkthrough:** <https://drive.google.com/file/d/1TvClUWIspns0RFi1o5hiBooy_53ZV9DO/view?usp=sharing>
+* **Run Test Video:** <https://drive.google.com/file/d/1tPzudYMOIZCPx4hjpJN-nw_5gPgPyWZz/view?usp=sharing>
 
 ## Installation and Usage
 1. Clone project

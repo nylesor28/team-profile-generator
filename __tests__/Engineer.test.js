@@ -5,7 +5,7 @@ test("creates an engineer object",()=>{
     const engineer = new Engineer("Titan", 55, "noemail@gmail.com","github");
     expect(engineer.name).toBe("Titan");
     expect(engineer.id).toEqual(expect.any(Number));
-    expect(engineer.email).toMatch(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/);
+    expect(engineer.email).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
     expect(engineer.role).toBe("Engineer");
     expect(engineer.githubUsername).toEqual(expect.any(String));
 })
@@ -23,7 +23,7 @@ test("gets engineer's id",()=>{
 
 test("gets engineer's email",()=>{
     const engineer = new Engineer("Titan", 55, "noemail@gmail.com","github");
-    expect(engineer.getEmail()).toMatch(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/);
+    expect(engineer.getEmail()).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 })
 
 test("gets engineer's role",()=>{

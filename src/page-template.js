@@ -4,7 +4,7 @@ const Engineer = require("../lib/Engineer");
 const Intern = require("../lib/Intern");
 
 generateManager = (manParm) => {
-console.log(manParm)
+
   const manager = new Manager(
     manParm.name,
     manParm.id,

@@ -6,7 +6,7 @@ test("creates an employee object",()=>{
     const employee = new Employee("Titan", 55, "noemail@gmail.com");
     expect(employee.name).toBe("Titan");
     expect(employee.id).toEqual(expect.any(Number));
-    expect(employee.email).toMatch(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/);
+    expect(employee.email).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
     expect(employee.role).toEqual(expect.any(String));
 })
 
@@ -23,7 +23,7 @@ test("gets employee's id",()=>{
 
 test("gets employee's email",()=>{
     const employee = new Employee("Titan", 55, "noemail@gmail.com");
-    expect(employee.getEmail()).toMatch(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/);
+    expect(employee.getEmail()).toMatch(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 })
 
 test("gets employee's role",()=>{
